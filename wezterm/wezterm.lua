@@ -12,6 +12,7 @@ config.window_frame = {
     font = wezterm.font { family = 'Fira Code' },
     font_size = 10.0,
 }
+config.pane_focus_follows_mouse = true
 
 config.font = wezterm.font_with_fallback {
     'Fira Code',
@@ -21,8 +22,7 @@ config.font = wezterm.font_with_fallback {
 if is_windows then
     require('config.windows').apply(config)
 elseif is_mac then
-    config.font_size = 11
-    config.default_prog = { '/bin/zsh', '-l' }
+    require('config.mac').apply(config)
 elseif is_linux then
     config.default_prog = { '/bin/bash', '-l' }
 end
