@@ -1,5 +1,18 @@
+local servers = {}
+local isRoslyn = false
+table.insert(servers, "lua_ls")
+table.insert(servers, "pyright")
+
+if vim.fn.executable("dotnet") == 1 then
+    table.insert(servers, isRoslyn and "roslyn" or "omnisharp")
+end
+
+if vim.fn.executable("node") == 1 then
+    table.insert(servers, "ts_ls")
+end
+
 return {
-  -- LSP Configuration
+  -- LSP Configuration:with
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -122,7 +135,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "omnisharp" },
+        ensure_installed = servers,
       })
     end,
   },
